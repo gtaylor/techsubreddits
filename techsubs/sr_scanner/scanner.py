@@ -19,7 +19,10 @@ def _send_get_request(url):
     :rtype: google.appengine.api.urlfetch._URLFetchResult
     :returns: The fetched result from App Engine's URL fetch service.
     """
-    result = urlfetch.fetch(url)
+    headers = {
+        'User-Agent': 'techsubreddits.com by /u/gctaylor',
+    }
+    result = urlfetch.fetch(url, headers=headers)
     assert result.status_code == 200, "Non-200 status code: %s" % result.status_code
     return result
 
@@ -51,12 +54,12 @@ def full_subreddit_scan(subreddit_name):
 
     Assumptions:
 
-    * We run this once per hour.
+    * We run this once per hour. Running this more than once will cause
+      the post-related stats to fail, since Google Metrics errors out instead
+      of idempotently allowing updates.
     * All of the hour's previous posts are accounted for in the JSON response.
       Keep in mind that un-auth'd requests to /new/.json are cached by
       the CDN for some length of time.
-    * If we somehow end up running this twice per hour, any existing metrics
-      for the hour are over-written with our new values.
 
     :param str subreddit_name: The sub-Reddit to scan and report metrics for.
     """
@@ -77,8 +80,7 @@ def calc_and_send_basic_subreddit_stats(subreddit_name):
     sub_count, accounts_active = _calc_basic_subreddit_stats(sr_about)
 
     metric_labels = _get_subreddit_metric_labels(subreddit_name)
-    # We'll lop this down to the first minute of the hour so that we have
-    # idempotency.
+    # time_override is specified so that we can't double-report an hour.
     hour_floor = datetime.datetime.now().replace(minute=0, second=0, microsecond=0)
     SubRedditSubscribers.write_gauge(
         sub_count, labels=metric_labels, time_override=hour_floor)
@@ -111,7 +113,7 @@ def calc_and_send_subreddit_post_stats(subreddit_name):
     new_posts = _calc_subreddit_post_stats(subreddit_name, hour_floor, hour_ceil)
 
     metric_labels = _get_subreddit_metric_labels(subreddit_name)
-    # time_override is specified so that we have idempotency.
+    # time_override is specified so that we can't double-report an hour.
     SubRedditNewPostCount.write_gauge(
         new_posts, labels=metric_labels, time_override=hour_floor)
 
