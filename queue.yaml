@@ -1,7 +1,8 @@
 total_storage_limit: 1G
 queue:
 - name: default
-  rate: 5/s
+  # Unauthenticated rate limit is 30 requests per minute.
+  rate: 30/m
   max_concurrent_requests: 1
   retry_parameters:
     min_backoff_seconds: 10
