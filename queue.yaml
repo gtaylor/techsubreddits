@@ -1,7 +1,8 @@
 total_storage_limit: 1G
 queue:
-- name: subreddit-scanner
-  rate: 3/s
+- name: default
+  rate: 5/s
+  max_concurrent_requests: 2
   retry_parameters:
     min_backoff_seconds: 10
     max_backoff_seconds: 40
