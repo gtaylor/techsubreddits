@@ -6,8 +6,7 @@ from techsubs import subreddits
 from techsubs.sr_scanner.scanner import full_subreddit_scan
 
 
-@app.route('/_workers/sr_scanner/enqueue-all', methods=['POST'],
-           endpoint='sr-scanner-enqueue-all')
+@app.route('/_workers/sr_scanner/enqueue-all', endpoint='sr-scanner-enqueue-all')
 def enqueue_all_subreddit_scans():
     """
     Initiates a full scan of the sub-Reddits.
