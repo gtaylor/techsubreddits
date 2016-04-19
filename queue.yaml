@@ -1,0 +1,9 @@
+total_storage_limit: 1G
+queue:
+- name: subreddit-scanner
+  rate: 3/s
+  retry_parameters:
+    min_backoff_seconds: 10
+    max_backoff_seconds: 40
+    max_doublings: 0
+    task_age_limit: 10m

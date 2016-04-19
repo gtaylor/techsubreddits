@@ -1,0 +1,4 @@
+cron:
+- description: track sub-Reddit
+  url: /_workers/sr_scanner/enqueue-all
+  schedule: every 1 hours from 00:30 to 23:30
