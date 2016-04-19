@@ -1,7 +1,9 @@
 import datetime
 
+
 from googleapiclient import discovery
 from oauth2client.client import GoogleCredentials
+from google.appengine.api.app_identity import get_application_id
 
 from techsubs import app
 
@@ -90,7 +92,7 @@ class BaseMetric(object):
 
     @classmethod
     def _get_metric_vars(cls):
-        project_id = app.config['GCP_PROJECT_ID']
+        project_id = get_application_id()
         md_type = "custom.googleapis.com/{}".format(cls.metric_name)
         md_name = "projects/{}/metricDescriptors/{}".format(
             project_id, md_type)

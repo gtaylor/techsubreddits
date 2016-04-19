@@ -13,6 +13,3 @@ def populate_flask_config(app):
         app.config['IS_PRODUCTION'] = False
     else:
         app.config['IS_PRODUCTION'] = True
-    app.config.update({
-        'GCP_PROJECT_ID': 'tech-subreddits',
-    })
