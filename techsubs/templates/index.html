@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block whole_title %}{{ config['SITE_NAME'] }}{% endblock %}
+
+{% block body %}
+<div class="row">
+  <div class="col-sm-12">
+    <p>
+      This site features categorized indices of various technical Subreddits.
+      We broadly and naively define "tech Subreddits" as those pertaining to
+      software/hardware development and engineering. Within each index, you'll
+      find historical trends and stats for the Subreddits within.
+    </p>
+    <br>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12">
+    <table class="table">
+      <tr>
+        <th>Index</th>
+        <th>Description</th>
+      </tr>
+      {% for slug, sr_dict in sr_categories.items() %}
+      <tr>
+        <td>
+          <a href="{{ url_for('subreddit-category', subreddit_category=slug)
+              }}">{{ sr_dict['human_name'] }}</a>
+        </td>
+        <td>
+          {{ sr_dict['description'] }}
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+    </div>
+</div>
+{% endblock %}

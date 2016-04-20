@@ -16,9 +16,9 @@ def enqueue_all_subreddit_scans():
     """
     for subreddit in subreddits.CATALOG.keys():
         basic_stats = flask.url_for('sr-scanner-basic-stats', subreddit=subreddit)
-        taskqueue.add(url=basic_stats)
+        taskqueue.add(url=basic_stats, queue_name='subreddit-api-workers')
         post_stats = flask.url_for('sr-scanner-post-stats', subreddit=subreddit)
-        taskqueue.add(url=post_stats)
+        taskqueue.add(url=post_stats, queue_name='subreddit-api-workers')
     return "OK"
 
 

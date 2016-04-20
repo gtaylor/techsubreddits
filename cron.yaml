@@ -1,4 +1,8 @@
 cron:
-- description: track sub-Reddit
-  url: /_workers/sr_scanner/enqueue-all
-  schedule: every 1 hours from 00:30 to 23:30
+  - description: scan and record Subreddit stats
+    url: /_workers/sr_scanner/enqueue-all
+    schedule: every 1 hours from 00:30 to 23:30
+
+  - description: generate static documents and upload to our GCS bucket
+    url: /_workers/static-gen/category/overview/enqueue-all
+    schedule: every 1 hours synchronized

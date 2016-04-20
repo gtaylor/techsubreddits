@@ -3,3 +3,5 @@
 import techsubs.views.cron  # noqa
 import techsubs.views.workers  # noqa
 import techsubs.views.system  # noqa
+import techsubs.views.web_ui  # noqa
+import techsubs.views.api  # noqa

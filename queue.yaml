@@ -1,12 +1,22 @@
 total_storage_limit: 1G
 queue:
-- name: default
-  # Unauthenticated rate limit is 30 requests per minute. Make sure we stay
-  # well within that. All Reddit API tasks should go through this queue.
-  rate: 5/m
-  max_concurrent_requests: 1
-  retry_parameters:
-    min_backoff_seconds: 10
-    max_backoff_seconds: 40
-    max_doublings: 0
-    task_age_limit: 10m
+  # This is here because it looked like it had to be here. We don't use it,
+  # in favor of explicitly bucketing our workers into various queues. Makes
+  # it easier to see the state of our background task processing at a glance.
+  - name: default
+    rate: 5/s
+
+  - name: subreddit-api-workers
+    # Unauthenticated rate limit is 30 requests per minute. Make sure we stay
+    # well within that. All Reddit API tasks should go through this queue.
+    rate: 5/m
+    max_concurrent_requests: 1
+    retry_parameters:
+      min_backoff_seconds: 10
+      max_backoff_seconds: 40
+      max_doublings: 0
+      task_age_limit: 10m
+
+  # For generating and populating our Google Storage bucket.
+  - name: bucket-populator-workers
+    rate: 5/s
