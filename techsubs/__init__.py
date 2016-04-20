@@ -10,5 +10,4 @@ populate_flask_config(app)
 # http://flask.pocoo.org/docs/0.10/patterns/packages/#simple-packages
 from techsubs import subreddits  # noqa
 from techsubs import views  # noqa
-from techsubs import api_resources  # noqa
 from techsubs import errorhandlers  # noqa
