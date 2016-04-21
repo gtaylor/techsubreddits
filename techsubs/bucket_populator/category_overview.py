@@ -15,7 +15,10 @@ def generate_and_upload(category):
     uri = '/{bucket_name}/{bucket_path}/category/{category}/overview'.format(
         bucket_name=API_BUCKET_NAME, bucket_path=API_BUCKET_PATH,
         category=category)
-    gcs_fobj = gcs.open(uri, 'w', content_type='application/json')
+    gcs_fobj = gcs.open(
+        filename=uri, mode='w',
+        content_type='application/json',
+        options={'Cache-Control': 'public, max-age=60'})
     gcs_fobj.write(overview_json)
     gcs_fobj.close()
 
