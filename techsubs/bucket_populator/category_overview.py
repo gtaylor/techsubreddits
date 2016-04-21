@@ -24,20 +24,24 @@ def _generate_json(category):
     if not subreddits.is_valid_subreddit_category(category):
         raise NotFoundError('Invalid Subreddit category.')
 
+    cat_subreddits = subreddits.get_subreddits_in_category(category)
     retval = {
-        'generated_time': datetime.datetime.now().isoformat(),
-        'subreddits': subreddits.get_subreddits_in_category(category)
+        'generatedTime': datetime.datetime.now().isoformat(),
+        'records': [],
+        'queryRecordCount': len(cat_subreddits),
+        'totalRecordCount': len(cat_subreddits),
     }
 
-    for subreddit in retval['subreddits']:
-        subreddit['stats'] = _query_and_return_subreddit_stats(subreddit['slug'])
+    for subreddit in cat_subreddits:
+        retval['records'].append(
+            _query_and_return_subreddit_stats(subreddit['slug']))
     return json.dumps(retval)
 
 
-def _query_and_return_subreddit_stats(subreddit):
+def _query_and_return_subreddit_stats(subreddit_slug):
     end_time = datetime.datetime.now()
     start_time = end_time - datetime.timedelta(hours=24)
-    metric_label_filters = {"subreddit": subreddit}
+    metric_label_filters = {"subreddit": subreddit_slug}
 
     subscriber_stats = _query_and_return_subscriber_stats(
         start_time, end_time, metric_label_filters)
@@ -47,9 +51,11 @@ def _query_and_return_subreddit_stats(subreddit):
         start_time, end_time, metric_label_filters)
 
     return {
-        'subscribers': subscriber_stats,
-        'active_accounts': active_accounts_stats,
-        'posts': post_stats,
+        'subreddit': subreddit_slug,
+        'accounts_active': active_accounts_stats['24_hour_peak'],
+        'new_subscribers': subscriber_stats['24_hour_growth'],
+        'total_subscribers': subscriber_stats['current_total'],
+        'new_posts': post_stats['24_hour_growth']
     }
 
 

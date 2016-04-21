@@ -59,3 +59,12 @@ body {
     border-bottom: 0;
   }
 }
+
+/* These are here because Dynatable intrusively screws with global styles. */
+th {
+  background: none;
+  color: black;
+}
+.dynatable-active-page:hover, th a, th a:hover {
+  color: black;
+}

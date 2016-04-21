@@ -15,8 +15,9 @@
     </title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.2/css/bootstrap.min.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/css/tether.min.css" rel="stylesheet">
-    <link href="/static/css/narrow-jumbotron.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/css/tether.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dynatable/0.3.1/jquery.dynatable.min.css">
+    <link rel="stylesheet" href="/static/css/narrow-jumbotron.css">
     {% block extra_css %}
     {% endblock %}
   </head>
@@ -45,11 +46,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Dynatable/0.3.1/jquery.dynatable.min.js"></script>
     <script type="application/javascript">
-      $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
-      })
+      $(document).ready(function() {
+        $('[data-toggle="tooltip"]').tooltip();
+      });
     </script>
+    {% block end_of_body_stuff %}{% endblock %}
 
   </body>
 </html>
