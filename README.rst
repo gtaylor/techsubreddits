@@ -2,7 +2,7 @@ Tech Subreddits
 ===============
 
 This repository contains a simple web app for categorizing and tracking
-various technical sub-reddits on Reddit. For the time being, "technical" is
+various technical Subreddits on Reddit. For the time being, "technical" is
 naively defined as "pertaining to software development".
 
 Running Unit and Integration Tests

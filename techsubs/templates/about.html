@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}About{% endblock %}
+
+{% block body %}
+<div class="row">
+  <div class="col-sm-12">
+    <h5>About {{ config['SITE_NAME'] }}</h5>
+    <p>
+      {{ config['SITE_NAME'] }} was originally created by
+      <a href="http://gc-taylor.com">Greg Taylor</a> as
+      an excuse to play with
+      <a href="https://cloud.google.com/appengine/">Google App Engine</a>
+      and the <a href="https://www.reddit.com/dev/api">Reddit API</a>.
+    </p>
+    <p>
+      While there were some existing and
+      <a href="http://snoopsnoo.com/">excellent</a> Subreddit tracking and
+      categorization sites, there was room for something a bit more simple
+      and targeted. Reddit features some of the best technical
+      communities on the internet. In fact, the sheer volume of excellent
+      technical Subreddits can make it difficult to keep track of what is out
+      there.
+    </p>
+    <p>
+      So here we are: a minimal, no-frills technical Subreddit Tracker. We
+      hope that you find something new and interesting here!
+    </p>
+
+    <h5>What is a "technical" Subreddit?</h5>
+    <p>
+      We broadly and naively define "tech Subreddits" as those pertaining to
+      software/hardware development, computer science, security, networking,
+      and related topics. This is a poor, fuzzy definition, but this project
+      isn't serious business. Quite the
+      <a href="http://thebest404pageever.com/swf/cage.swf">opposite</a>.
+    </p>
+
+    <h5>Open Development</h5>
+    <p>
+      The source code for {{ config['SITE_NAME'] }} can be found
+      on <a href="https://github.com/gtaylor/techsubreddits">GitHub</a>, should
+      you ever want to contribute or run your own topical tracker.
+    </p>
+  </div>
+</div>
+{% endblock %}

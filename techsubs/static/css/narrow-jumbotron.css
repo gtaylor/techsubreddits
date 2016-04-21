@@ -37,7 +37,7 @@ body {
 /* Customize container */
 @media (min-width: 48em) {
   .container {
-    max-width: 65rem;
+    max-width: 60rem;
   }
 }
 

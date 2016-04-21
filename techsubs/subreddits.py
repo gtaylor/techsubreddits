@@ -9,11 +9,17 @@ medium if this project sees the light of day in any meaningful capacity.
 import collections
 
 
+# Use these instead of copy/pasta'ing the values around. Easier to mass
+# rename and search on.
 CATEGORY_CONTAINERIZATION = 'containerization'
 CATEGORY_DATABASES = 'databases'
+CATEGORY_SECURITY = 'security-and-hacking'
+CATEGORY_NETWORKING = 'networking'
+CATEGORY_OPERATING_SYSTEMS = 'operating-systems'
 CATEGORY_PLATFORM_INFRASTRUCTURE = 'platform-and-infrastructure'
 CATEGORY_PROGRAMMING_LANG = 'programming-language'
-CATEGORY_PROVISIONING_DEPLOYMENT = 'provisioning-and-deployment'
+CATEGORY_OPERATIONS_ADMINISTRATION = 'operations-and-administration'
+CATEGORY_PROGRAMMING_AND_COMP_SCI = 'programming-and-comp-sci'
 
 # noinspection PyArgumentList
 CATEGORIES = collections.OrderedDict(sorted({
@@ -32,15 +38,35 @@ CATEGORIES = collections.OrderedDict(sorted({
         'human_name': 'Databases',
         'description': "It's where the data goes."
     },
+    CATEGORY_NETWORKING: {
+        'slug': CATEGORY_NETWORKING,
+        'human_name': 'Networking',
+        'description': 'Everything you never wanted to know about BGP.',
+    },
+    CATEGORY_OPERATING_SYSTEMS: {
+        'slug': CATEGORY_OPERATING_SYSTEMS,
+        'human_name': 'Operating Systems',
+        'description': 'Operating systems, distributions, and other friends.',
+    },
+    CATEGORY_OPERATIONS_ADMINISTRATION: {
+        'slug': CATEGORY_OPERATIONS_ADMINISTRATION,
+        'human_name': 'Operations and Administration',
+        'description': 'Provisioning, Configuration, Administration, and Deployment.'
+    },
     CATEGORY_PLATFORM_INFRASTRUCTURE: {
         'slug': CATEGORY_PLATFORM_INFRASTRUCTURE,
         'human_name': 'Platform and Infrastructure',
         'description': 'IaaS, PaaS, Bare metal, oh my!',
     },
-    CATEGORY_PROVISIONING_DEPLOYMENT: {
-        'slug': CATEGORY_PROVISIONING_DEPLOYMENT,
-        'human_name': 'Provisioning and Deployment',
-        'description': 'Provisioning, Configuration, and Deployment.'
+    CATEGORY_PROGRAMMING_AND_COMP_SCI: {
+        'slug': CATEGORY_PROGRAMMING_AND_COMP_SCI,
+        'human_name': 'Programming and Comp Sci',
+        'description': 'Software Development, Comp Sci, self-improvement stuff.',
+    },
+    CATEGORY_SECURITY: {
+        'slug': CATEGORY_SECURITY,
+        'human_name': 'Security and Hacking',
+        'description': 'Securing systems, intrusion detection, penetration testing, etc.'
     }
 }.items()), key=lambda t: t[0])
 if 'key' in CATEGORIES:
@@ -55,71 +81,79 @@ CATALOG = {}
 # have to write it all out if and when we add Subreddits to multiple categories.
 
 
-def add_programming_languages():
-    subreddits = (
+def simple_add_to_category(category, subreddits):
+    """
+    A really cheezy way to mass add Subreddits to a category. In the future we
+    may put certain Subreddits in multiple categories, which would cause this
+    to be less fun.
+
+    :param str category: One of the CATEGORY_* defines in this module.
+    :param list subreddits: A list of Subreddits to add to the category.
+    """
+    for subreddit in subreddits:
+        if not subreddit in CATALOG:
+            CATALOG[subreddit] = {
+                'slug': subreddit,
+                'categories': [category],
+            }
+        else:
+            CATALOG[subreddit]['categories'] += [category]
+
+simple_add_to_category(
+    category=CATEGORY_PROGRAMMING_LANG,
+    subreddits=[
         'python', 'ruby', 'golang', 'java', 'cplusplus', 'csharp',
         'C_Programming', 'cpp', 'haskell', 'php', 'scala', 'javascript',
         'perl', 'swift', 'd_language', 'Rlanguage', 'matlab', 'dartlang',
         'ocaml', 'lisp', 'fsharp', 'erlang', 'lua', 'visualbasic', 'SQL',
-        'rust',
-    )
-    for lang in subreddits:
-        CATALOG[lang] = {
-            'slug': lang,
-            'categories': [CATEGORY_PROGRAMMING_LANG],
-        }
-
-
-def add_containerization():
-    subreddits = (
+        'rust', 'asm',
+    ])
+simple_add_to_category(
+    category=CATEGORY_CONTAINERIZATION,
+    subreddits=[
         'docker', 'kubernetes', 'mesos', 'coreos', 'openshift',
-    )
-    for lang in subreddits:
-        CATALOG[lang] = {
-            'slug': lang,
-            'categories': [CATEGORY_CONTAINERIZATION],
-        }
-
-
-def add_platform_and_infrastructure():
-    subreddits = (
+    ])
+simple_add_to_category(
+    category=CATEGORY_NETWORKING,
+    subreddits=[
+        'netsec', 'ccna', 'darknetplan', 'AskNetsec', 'wireless', 'networking',
+        'HomeNetworking',
+    ])
+simple_add_to_category(
+    category=CATEGORY_OPERATING_SYSTEMS,
+    subreddits=[
+        'linux', 'linux4noobs', 'ubuntu', 'bsd', 'osx', 'windows', 'unix',
+    ])
+simple_add_to_category(
+    category=CATEGORY_PLATFORM_INFRASTRUCTURE,
+    subreddits=[
         'aws', 'googlecloud', 'AZURE', 'openstack',
-    )
-    for lang in subreddits:
-        CATALOG[lang] = {
-            'slug': lang,
-            'categories': [CATEGORY_PLATFORM_INFRASTRUCTURE],
-        }
-
-
-def add_provisioning_and_deployment():
-    subreddits = (
+    ])
+simple_add_to_category(
+    category=CATEGORY_PROGRAMMING_AND_COMP_SCI,
+    subreddits=[
+        'programming', 'learnprogramming', 'ProgrammerHumor', 'dailyprogrammer',
+        'coding', 'shittyprogramming',
+    ])
+simple_add_to_category(
+    category=CATEGORY_OPERATIONS_ADMINISTRATION,
+    subreddits=[
         'vagrant', 'chef_opscode', 'Puppet', 'ansible', 'saltstack',
-    )
-    for lang in subreddits:
-        CATALOG[lang] = {
-            'slug': lang,
-            'categories': [CATEGORY_PROVISIONING_DEPLOYMENT],
-        }
-
-
-def add_databases():
-    subreddits = (
+        'iiiiiiitttttttttttt', 'sysadmin',
+    ])
+simple_add_to_category(
+    category=CATEGORY_DATABASES,
+    subreddits=[
         'postgres', 'mariadb', 'mysql', 'cassandra', 'CouchDB', 'mongodb',
         'rethinkdb',
-    )
-    for lang in subreddits:
-        CATALOG[lang] = {
-            'slug': lang,
-            'categories': [CATEGORY_DATABASES],
-        }
-
-
-add_programming_languages()
-add_containerization()
-add_platform_and_infrastructure()
-add_provisioning_and_deployment()
-add_databases()
+    ])
+simple_add_to_category(
+    category=CATEGORY_SECURITY,
+    subreddits=[
+        'security', 'netsec', 'ComputerSecurity', 'compsec', 'AskNetsec',
+        'hacking', 'pwned', 'SecurityAnalysis', 'securityCTF', 'HowToHack',
+        'blackhat',
+    ])
 
 # Sort the keys once we have all of them. Helps our views avoid doing that.
 CATALOG = collections.OrderedDict(

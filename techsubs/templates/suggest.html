@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Suggest{% endblock %}
+
+{% block body %}
+<div class="row">
+  <div class="col-sm-12">
+    <h5>Suggest a Subreddit</h5>
+    <p>
+      Since this tracker is curated by hand, we rely on our own discoveries
+      and the suggestions of our users. If you would like to suggest a
+      Subreddit for inclusion, file an issue on our
+      <a href="https://github.com/gtaylor/techsubreddits/issues">issue
+        tracker</a> with the name of the Subreddit.
+    </p>
+    <p>
+      <em>
+        Note: While we don't have any minimum subscriber counts or hard
+        policies, we do aim to keep our categories trimmed enough so as to not
+        be overwhelming.
+      </em>
+    </p>
+    <h5>Suggest Improvements</h5>
+    <p>
+      If you have simple ideas for improving the Tracker, we're all ears.
+      File an issue on our
+      <a href="https://github.com/gtaylor/techsubreddits/issues">issue
+        tracker</a> and let us know what you are thinking. If you are feeling
+      particularly ambitious, grab the
+      <a href="https://github.com/gtaylor/techsubreddits">source code</a> and
+      submit a pull request.
+    </p>
+    <p>
+      Since {{ config['SITE_NAME'] }} is a hobby project among many other
+      hobby projects, we're much more likely to implement improvements
+      that are simple and/or quick to deliver.
+    </p>
+  </div>
+</div>
+{% endblock %}

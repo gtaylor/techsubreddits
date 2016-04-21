@@ -14,6 +14,22 @@ def landing_page():
         'index.html', sr_categories=subreddits.CATEGORIES)
 
 
+@app.route('/about', endpoint='about')
+def about():
+    """
+    About page.
+    """
+    return flask.render_template('about.html')
+
+
+@app.route('/suggest', endpoint='suggest')
+def suggest():
+    """
+    A page that details how to suggest Subreddits or improvements.
+    """
+    return flask.render_template('suggest.html')
+
+
 @app.route('/category/<subreddit_category>', endpoint='subreddit-category')
 def subreddit_category(subreddit_category):
     """
